@@ -59,8 +59,9 @@ transcripción: la revisión del núcleo transaccional, la revisión de las mét
 el modelo más caro en todo cuesta plata sin mejorar el resultado de copiar una tabla; usar el más barato en
 la revisión de una transacción es donde se pierde un bug de atomicidad.
 
-Resultado: 14 commits, 71 tests en 6 suites, `tsc --noEmit` limpio, y `pnpm install --frozen-lockfile`,
-`pnpm typecheck`, `pnpm test`, `pnpm build` y el arranque del servidor verificados desde un clone limpio.
+Resultado: un commit por tarea más los de corrección de revisión, 71 tests en 6 suites, `tsc --noEmit`
+limpio, y `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm test`, `pnpm build` y el arranque del
+servidor verificados desde un clone limpio.
 
 ## 4. Qué se delegó completo
 
