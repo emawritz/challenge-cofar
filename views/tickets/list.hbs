@@ -1,0 +1,56 @@
+<h1>{{#if isAgent}}Cola de tickets{{else}}Mis tickets{{/if}}</h1>
+
+{{#if isAgent}}
+<form method="get" action="/tickets">
+  <fieldset>
+    <label>Estado
+      <select name="status">
+        <option value="" {{#if (eq filters.status "")}}selected{{/if}}>Activos (abiertos + en progreso)</option>
+        <option value="OPEN" {{#if (eq filters.status "OPEN")}}selected{{/if}}>OPEN</option>
+        <option value="IN_PROGRESS" {{#if (eq filters.status "IN_PROGRESS")}}selected{{/if}}>IN_PROGRESS</option>
+        <option value="RESOLVED" {{#if (eq filters.status "RESOLVED")}}selected{{/if}}>RESOLVED</option>
+        <option value="CANCELLED" {{#if (eq filters.status "CANCELLED")}}selected{{/if}}>CANCELLED</option>
+        <option value="all" {{#if (eq filters.status "all")}}selected{{/if}}>Todos</option>
+      </select>
+    </label>
+    <label>Categoría
+      <select name="category">
+        <option value="">Todas</option>
+        {{#each categories}}<option value="{{id}}" {{#if (eq ../filters.category (toString id))}}selected{{/if}}>{{name}}</option>{{/each}}
+      </select>
+    </label>
+    <label>Asignación
+      <select name="assignee">
+        <option value="any" {{#if (eq filters.assignee "any")}}selected{{/if}}>Cualquiera</option>
+        <option value="unassigned" {{#if (eq filters.assignee "unassigned")}}selected{{/if}}>Sin tomar</option>
+        <option value="me" {{#if (eq filters.assignee "me")}}selected{{/if}}>Míos</option>
+      </select>
+    </label>
+    <label>Título contiene <input name="q" value="{{filters.q}}"></label>
+    <button>Filtrar</button>
+    <a href="/tickets">Limpiar</a>
+  </fieldset>
+</form>
+{{/if}}
+
+{{#if rows.length}}
+<table>
+  <thead><tr><th>#</th><th>Título</th><th>Categoría</th><th>Estado</th>{{#if isAgent}}<th>Solicitante</th>{{/if}}<th>Asignado</th><th>Creado</th></tr></thead>
+  <tbody>
+  {{#each rows}}
+    <tr>
+      <td><a href="/tickets/{{id}}">{{id}}</a></td>
+      <td><a href="/tickets/{{id}}">{{title}}</a></td>
+      <td>{{categoryName}}</td>
+      <td class="status">{{status}}</td>
+      {{#if ../isAgent}}<td>{{requesterName}}</td>{{/if}}
+      <td>{{#if assigneeName}}{{assigneeName}}{{else}}<span class="muted">—</span>{{/if}}</td>
+      <td class="muted">{{date createdAt}}</td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
+<p class="muted">{{rows.length}} tickets, más viejo primero.</p>
+{{else}}
+<p class="muted">No hay tickets para mostrar.</p>
+{{/if}}

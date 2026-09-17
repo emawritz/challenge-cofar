@@ -1,0 +1,19 @@
+<h1>Nuevo ticket</h1>
+<form method="post" action="/tickets" style="display:grid; gap:12px; max-width:600px">
+  <label>Título
+    <input name="title" value="{{values.title}}" maxlength="120" required>
+    {{#if errors.title}}<span class="error">{{errors.title}}</span>{{/if}}
+  </label>
+  <label>Descripción
+    <textarea name="description" rows="6" maxlength="5000" required>{{values.description}}</textarea>
+    {{#if errors.description}}<span class="error">{{errors.description}}</span>{{/if}}
+  </label>
+  <label>Categoría
+    <select name="categoryId" required>
+      <option value="">Elegí una</option>
+      {{#each categories}}<option value="{{id}}" {{#if (eq ../values.categoryId (toString id))}}selected{{/if}}>{{name}}</option>{{/each}}
+    </select>
+    {{#if errors.categoryId}}<span class="error">{{errors.categoryId}}</span>{{/if}}
+  </label>
+  <button>Crear ticket</button>
+</form>

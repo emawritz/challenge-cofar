@@ -14,5 +14,6 @@ export function configureApp(app: NestExpressApplication): void {
   hbs.registerHelper('eq', (a: unknown, b: unknown) => a === b);
   hbs.registerHelper('date', (iso: string) => iso ? iso.slice(0, 16).replace('T', ' ') + ' UTC' : '');
   hbs.registerHelper('fixed', (n: number | null) => n === null || n === undefined ? '—' : n.toFixed(1));
+  hbs.registerHelper('toString', (v: unknown) => String(v));
   app.useGlobalFilters(new HttpErrorFilter());
 }

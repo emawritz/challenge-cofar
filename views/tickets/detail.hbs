@@ -1,0 +1,26 @@
+<p><a href="/tickets">← Volver</a></p>
+<h1>#{{ticket.id}} {{ticket.title}}</h1>
+<p><span class="status">{{ticket.status}}</span> · {{categoryName}} · creado {{date ticket.createdAt}} por {{requesterName}}</p>
+<p>Asignado: {{#if assigneeName}}{{assigneeName}}{{else}}<span class="muted">nadie</span>{{/if}}{{#if ticket.resolvedAt}} · resuelto {{date ticket.resolvedAt}}{{/if}}</p>
+<pre style="white-space: pre-wrap; background:#f6f6f6; padding:12px">{{ticket.description}}</pre>
+
+{{#if actionButtons.length}}
+<p>
+{{#each actionButtons}}
+  <form class="inline" method="post" action="/tickets/{{../ticket.id}}/{{action}}">
+    <input type="hidden" name="version" value="{{../ticket.version}}">
+    <button>{{label}}</button>
+  </form>
+{{/each}}
+</p>
+{{/if}}
+
+<h2>Historial</h2>
+<table>
+  <thead><tr><th>Cuándo</th><th>Qué</th><th>Quién</th><th>De</th><th>A</th></tr></thead>
+  <tbody>
+  {{#each events}}
+    <tr><td class="muted">{{date occurredAt}}</td><td>{{type}}</td><td>{{actorName}}</td><td>{{#if fromStatus}}{{fromStatus}}{{else}}—{{/if}}</td><td>{{toStatus}}</td></tr>
+  {{/each}}
+  </tbody>
+</table>
