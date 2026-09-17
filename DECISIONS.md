@@ -231,8 +231,7 @@ autorización en el dominio. Las reglas no están en el login, así que cambiar 
 
 ## 6. Opcionales: qué se eligió y con qué criterio
 
-Criterio único: **v1 mide la operación real. No simula procesos que la organización todavía no definió, ni
-agrega superficie técnica sin señal a cambio.**
+Criterio único: **v1 mide la operación real. No simula procesos que la organización todavía no definió, ni agrega superficie técnica sin señal a cambio.**
 
 ### Elegidos (2 de 8)
 
