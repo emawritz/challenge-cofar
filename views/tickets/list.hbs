@@ -5,7 +5,7 @@
   <fieldset>
     <label>Estado
       <select name="status">
-        <option value="" {{#if (eq filters.status "")}}selected{{/if}}>Activos (abiertos + en progreso)</option>
+        <option value="" {{#if (eq filters.status "")}}selected{{/if}}>Abiertos (OPEN + IN_PROGRESS)</option>
         <option value="OPEN" {{#if (eq filters.status "OPEN")}}selected{{/if}}>OPEN</option>
         <option value="IN_PROGRESS" {{#if (eq filters.status "IN_PROGRESS")}}selected{{/if}}>IN_PROGRESS</option>
         <option value="RESOLVED" {{#if (eq filters.status "RESOLVED")}}selected{{/if}}>RESOLVED</option>

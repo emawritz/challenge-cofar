@@ -22,7 +22,8 @@ pnpm install
 pnpm dev
 ```
 
-Abrí `http://localhost:3000`. La raíz redirige a `/login`. El puerto se cambia con `PORT`.
+Abrí `http://localhost:3000`. La raíz redirige a `/tickets`, pero el guard de sesión se aplica primero, así
+que mientras no elegiste identidad caés directo en `/login`. El puerto se cambia con `PORT`.
 
 El primer arranque crea la base, corre las migraciones de `drizzle/` y siembra usuarios y categorías.
 El seed es idempotente: reiniciar no duplica usuarios ni borra tickets.
@@ -35,7 +36,7 @@ No hay contraseña. La pantalla de login es un selector de identidad simulada: e
 |---|---|---|---|
 | 1 | Ana Pérez | REQUESTER | Crear tickets, ver los propios, cancelarlos, reabrir los propios resueltos |
 | 2 | Bruno Díaz | REQUESTER | Lo mismo, sobre sus propios tickets |
-| 3 | Carla Soto | AGENT | Ver la cola completa con filtros, tomar, resolver lo que tomó, ver el dashboard |
+| 3 | Carla Soto | AGENT | Ver la cola completa con filtros, tomar, resolver lo que tomó, reabrir lo que resolvió, ver el dashboard |
 | 4 | Diego Ruiz | AGENT | Lo mismo |
 
 ## Base de datos
@@ -57,8 +58,8 @@ pnpm build       # nest build → dist/
    descripción y categoría, y creá. Caés en el detalle del ticket: estado `OPEN`, sin asignado, historial con
    un evento `CREATED`.
 2. **Ver la cola como agente.** "Salir" → entrá como *Carla Soto*. En `/tickets` ves la cola con filtros
-   (estado, categoría, asignación, título contiene). El ticket de Ana aparece con el filtro por defecto
-   (abiertos + en progreso), más viejo primero.
+   (estado, categoría, asignación, título contiene). El ticket de Ana aparece con el filtro por defecto,
+   "Abiertos (OPEN + IN_PROGRESS)", más viejo primero.
 3. **Tomar y resolver.** Abrí el ticket, "tomar" → `IN_PROGRESS` con Carla asignada. "resolver" → `RESOLVED`
    con fecha de resolución. El historial ahora muestra tres eventos: `CREATED`, `CLAIMED`, `RESOLVED`, cada uno
    con quién, cuándo, y de qué estado a cuál.

@@ -160,9 +160,8 @@ que la pantalla mostraba al lado del número decía "excluye cancelados", que en
 corrigió el texto de la pantalla para que diga lo que el número mide: *un ticket cancelado sin haberse
 resuelto nunca entra*.
 
-Es exactamente el tipo de error que este documento dice perseguir: el número estaba bien y la etiqueta
-mentía. Sólo aparece si uno escribe la definición en una frase y la compara con el texto de la pantalla.
-Ese camino no tiene un test automatizado propio, y es el candidato número uno a agregarlo.
+Sólo aparece si uno escribe la definición en una frase y la compara con el texto de la pantalla. Ese camino
+no tiene un test automatizado propio, y es el candidato número uno a agregarlo.
 
 ## 5. Recorrido manual
 

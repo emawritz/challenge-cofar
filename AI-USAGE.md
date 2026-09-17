@@ -197,9 +197,7 @@ atrapadas, y por más pruebas de las previstas en cada caso. Una cuarta sonda mo
 `AND version = ?` del `UPDATE` es redundante mientras haya una sola conexión síncrona. El detalle, con qué
 prueba atrapó qué, está en QUALITY.md.
 
-**Escritura de estos documentos.** Poner el contrato de métricas en una frase por número y compararlo con
-el texto que muestra la pantalla destapó un caso que ninguna de las dos herramientas había visto y que
-ningún test cubría: un ticket resuelto, reabierto y después cancelado aporta su primera resolución a la
-mediana de resolución, mientras la pantalla decía "excluye cancelados". Construí el caso, lo medí y corregí
-el texto de la pantalla. El número estaba bien; la etiqueta mentía. Escribir la documentación no fue el
-último paso administrativo: fue la verificación que encontró el último error.
+**Escritura de estos documentos.** Comparar cada definición del contrato de métricas con el texto que
+muestra la pantalla destapó un caso límite que ninguna de las dos herramientas había visto y que ningún test
+cubría, y que terminó en una corrección de la vista (está en DECISIONS.md, sección 7). Escribir la
+documentación no fue el último paso administrativo: fue la verificación que encontró el último error.

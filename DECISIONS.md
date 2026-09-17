@@ -168,6 +168,11 @@ vaya a rechazar.
 
 Fija, en este orden. Está implementada en este orden y hay tests que la fijan.
 
+Antes de los cinco escalones hay uno previo: un `id` o un `version` que no sea un entero falla en el pipe de
+parseo y devuelve **400** sin llegar a ninguna regla de dominio. Importa decirlo porque el `version` es un
+campo oculto del formulario, es decir entrada del usuario: mandarlo vacío o con letras no es una forma de
+esquivar el chequeo de versión, es un 400 inmediato. Hay un test HTTP que lo fija.
+
 1. Rol no admitido para la ruta (guard) ⇒ **403**.
 2. Ticket inexistente o no visible para el actor ⇒ **404**. No revela que el ticket existe.
 3. `version` recibida distinta de la actual ⇒ **409**.
@@ -346,7 +351,7 @@ compró.
 | Filtro de texto con `LIKE '%q%'` sin escapar `%` ni `_` | Suficiente para buscar en títulos; el parámetro va bindeado, no concatenado, así que no hay inyección, pero un `%` que escriba el usuario actúa como comodín | Con FTS, cuando haya volumen y alguien se queje de los resultados |
 | La cola usa `INNER JOIN` con categoría y solicitante | Con las FK activadas no puede haber huérfanos | Si alguna vez se permite borrar categorías o usuarios: un ticket huérfano desaparecería de la cola sin dejar rastro. Pasar a `LEFT JOIN` y mostrar el faltante |
 | Filtro de categoría no valida el valor recibido | Un `category` no numérico se convierte en `NaN` y la cola sale vacía, sin decir por qué | Validar el query param y re-renderizar el filtro con un mensaje |
-| La tasa de cancelación se redondea con `Math.round` | Un decimal alcanza para la escala de la demo | Muestra "0%" para un 0,4% real, que no es lo mismo que cero. Con volumen: un decimal o el conteo crudo al lado |
+| La tasa de cancelación se redondea a porcentaje entero con `Math.round` | Con las decenas de tickets de la demo, un punto porcentual es más chico que un ticket: no hay precisión que mostrar | Muestra "0%" para un 0,4% real, que no es lo mismo que cero. Con volumen: un decimal o el conteo crudo al lado |
 | `SESSION_SECRET` tiene un valor por defecto de desarrollo | Arranque sin configuración para la demo | Validar su presencia al bootear y fallar si falta, apenas exista un entorno que no sea local |
 | Sin comentarios en los tickets | Descartado con criterio (sección 6) | v2, cuando el flujo esté validado |
 | Sin `payload` en los eventos | Ningún evento de v1 lleva datos propios | Con la primera acción que traiga datos (reasignación con motivo) |
