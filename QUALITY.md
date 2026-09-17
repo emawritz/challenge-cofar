@@ -151,6 +151,19 @@ conflicto de versión en verde habrían pasado por evidencia de que ambas defens
 
 Tras cada mutación se restauró el archivo y se verificó el árbol limpio. Estado final: 71 de 71.
 
+**Una sonda más, sobre el contrato de métricas.** Al escribir la definición de la mediana de resolución
+construí a mano el único camino por el que un ticket puede terminar `CANCELLED` habiendo tenido antes un
+evento `RESOLVED`: resolver, reabrir y recién entonces cancelar. Ese ticket **sí** aporta su primera
+resolución a la mediana y al conteo de resueltos, porque las cohortes se definen por el evento y no por el
+estado actual. Es el comportamiento correcto —la resolución ocurrió de verdad— pero la frase de definición
+que la pantalla mostraba al lado del número decía "excluye cancelados", que en ese camino es falso. Se
+corrigió el texto de la pantalla para que diga lo que el número mide: *un ticket cancelado sin haberse
+resuelto nunca entra*.
+
+Es exactamente el tipo de error que este documento dice perseguir: el número estaba bien y la etiqueta
+mentía. Sólo aparece si uno escribe la definición en una frase y la compara con el texto de la pantalla.
+Ese camino no tiene un test automatizado propio, y es el candidato número uno a agregarlo.
+
 ## 5. Recorrido manual
 
 El mismo recorrido de la demo del README, ejecutado de punta a punta contra el binario compilado

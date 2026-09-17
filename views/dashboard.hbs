@@ -31,4 +31,4 @@
 <div class="metric"><strong>{{cancelled30}}</strong>Cancelados<br><span class="muted">cancelaciones en la ventana</span></div>
 <div class="metric"><strong>{{#if cancelRatePct}}{{cancelRatePct}}%{{else}}{{#if (eq cancelRatePct 0)}}0%{{else}}—{{/if}}{{/if}}</strong>Tasa de cancelación<br><span class="muted">de los creados en la ventana, cuántos están cancelados hoy</span></div>
 <div class="metric"><strong>{{fixed medianClaimHours}}</strong>Mediana horas hasta tomar<br><span class="muted">creación → primera toma, tickets tomados por primera vez en la ventana</span></div>
-<div class="metric"><strong>{{fixed medianResolveHours}}</strong>Mediana horas hasta resolver<br><span class="muted">creación → primera resolución, tickets resueltos por primera vez en la ventana; excluye cancelados</span></div>
+<div class="metric"><strong>{{fixed medianResolveHours}}</strong>Mediana horas hasta resolver<br><span class="muted">creación → primera resolución, tickets cuya primera resolución cae en la ventana; un ticket cancelado sin haberse resuelto nunca entra</span></div>

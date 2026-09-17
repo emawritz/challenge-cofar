@@ -261,7 +261,9 @@ Definiciones comunes:
   `cutoff <= occurred_at <= now` (ambos extremos incluidos).
 - "Primer evento de tipo T de un ticket" = la fila de `ticket_events` con menor `id` entre las de ese ticket
   y ese tipo.
-- Abiertos = `status IN ('OPEN','IN_PROGRESS')`. La vista usa esa palabra de forma consistente.
+- Abiertos = `status IN ('OPEN','IN_PROGRESS')`. El dashboard usa esa palabra y ninguna otra para ese
+  conjunto: dos palabras distintas para lo mismo en la misma pantalla alcanzan para que alguien concluya que
+  son cosas distintas.
 - Denominador cero ⇒ se muestra "—", nunca 0% ni NaN.
 - Agrupaciones sin filas se omiten: no se listan agentes ni categorías en cero.
 - Una categoría desactivada que todavía tiene tickets abiertos se muestra por su nombre.
@@ -291,8 +293,14 @@ Reglas de las medianas:
   creación", que es justamente donde un ticket olvidado tiene que aparecer.
 - **Un ticket que fue tomado y después cancelado SÍ entra en la mediana de tiempo hasta tomar**, porque la
   toma efectivamente ocurrió y esa métrica mide cuánto tarda el equipo en hacerse cargo, no cómo termina el
-  ticket. **`CANCELLED` nunca entra en el tiempo hasta la resolución**, porque un ticket cancelado no tiene
-  evento `RESOLVED` y contarlo como resuelto inflaría artificialmente la capacidad del equipo.
+  ticket.
+- **Un ticket cancelado sin haberse resuelto nunca entra en el tiempo hasta la resolución.** No tiene evento
+  `RESOLVED`, y contar una cancelación como resolución inflaría artificialmente la capacidad del equipo.
+  Hay un camino donde un ticket terminó `CANCELLED` y **sí** aporta a esa mediana: se resolvió, se reabrió y
+  recién entonces se canceló. Ese ticket se resolvió de verdad una vez, y esa primera resolución es lo que
+  se mide. Las dos cohortes se definen por el **evento**, no por el estado actual, que es la misma razón por
+  la que una reapertura no borra la primera resolución. Verificado a mano: el caso está construido y
+  medido, no supuesto.
 - Cohorte vacía ⇒ "—".
 - La query trae sólo las duraciones de la cohorte; la mediana se calcula en memoria.
 

@@ -59,7 +59,8 @@ transcripción: la revisión del núcleo transaccional, la revisión de las mét
 el modelo más caro en todo cuesta plata sin mejorar el resultado de copiar una tabla; usar el más barato en
 la revisión de una transacción es donde se pierde un bug de atomicidad.
 
-Resultado: 13 commits, 71 tests en 6 suites, `tsc --noEmit` limpio.
+Resultado: 14 commits, 71 tests en 6 suites, `tsc --noEmit` limpio, y `pnpm install --frozen-lockfile`,
+`pnpm typecheck`, `pnpm test`, `pnpm build` y el arranque del servidor verificados desde un clone limpio.
 
 ## 4. Qué se delegó completo
 
@@ -194,3 +195,10 @@ fallaban y restauré. Un test que pasa no prueba nada hasta verlo fallar. Las tr
 atrapadas, y por más pruebas de las previstas en cada caso. Una cuarta sonda mostró que la cláusula
 `AND version = ?` del `UPDATE` es redundante mientras haya una sola conexión síncrona. El detalle, con qué
 prueba atrapó qué, está en QUALITY.md.
+
+**Escritura de estos documentos.** Poner el contrato de métricas en una frase por número y compararlo con
+el texto que muestra la pantalla destapó un caso que ninguna de las dos herramientas había visto y que
+ningún test cubría: un ticket resuelto, reabierto y después cancelado aporta su primera resolución a la
+mediana de resolución, mientras la pantalla decía "excluye cancelados". Construí el caso, lo medí y corregí
+el texto de la pantalla. El número estaba bien; la etiqueta mentía. Escribir la documentación no fue el
+último paso administrativo: fue la verificación que encontró el último error.
