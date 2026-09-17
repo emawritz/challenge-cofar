@@ -1,0 +1,30 @@
+<h1>Dashboard</h1>
+<p class="muted">Todo en UTC. "30 días" = ventana móvil de 720 horas hasta ahora.</p>
+
+<h2>Ahora</h2>
+<div class="metric"><strong>{{open}}</strong>Abiertos<br><span class="muted">tickets en OPEN o IN_PROGRESS</span></div>
+<div class="metric"><strong>{{untaken}}</strong>Sin tomar<br><span class="muted">tickets en OPEN (nadie los tiene)</span></div>
+
+<h2>Quién los tiene</h2>
+{{#if byAgent.length}}
+<table><thead><tr><th>Agente</th><th>En progreso</th></tr></thead><tbody>
+{{#each byAgent}}<tr><td>{{name}}</td><td>{{n}}</td></tr>{{/each}}
+</tbody></table>
+{{else}}<p class="muted">Nadie tiene tickets en progreso.</p>{{/if}}
+
+<h2>Activos por categoría</h2>
+{{#if byCategory.length}}
+<table><thead><tr><th>Categoría</th><th>Activos</th></tr></thead><tbody>
+{{#each byCategory}}<tr><td>{{name}}</td><td>{{n}}</td></tr>{{/each}}
+</tbody></table>
+{{else}}<p class="muted">Sin tickets activos.</p>{{/if}}
+
+<h2>Edad desde creación (activos)</h2>
+<p class="muted">Cuánto hace que se creó cada ticket activo, sin importar reaperturas.</p>
+{{#each aging}}<div class="metric"><strong>{{n}}</strong>{{label}}</div>{{/each}}
+
+<h2>Últimos 30 días</h2>
+<div class="metric"><strong>{{created30}}</strong>Creados<br><span class="muted">eventos CREATED en la ventana</span></div>
+<div class="metric"><strong>{{resolved30}}</strong>Resueltos<br><span class="muted">tickets cuya primera resolución cae en la ventana</span></div>
+<div class="metric"><strong>{{cancelled30}}</strong>Cancelados<br><span class="muted">cancelaciones en la ventana</span></div>
+<div class="metric"><strong>{{#if cancelRatePct}}{{cancelRatePct}}%{{else}}{{#if (eq cancelRatePct 0)}}0%{{else}}—{{/if}}{{/if}}</strong>Tasa de cancelación<br><span class="muted">de los creados en la ventana, cuántos están cancelados hoy</span></div>
