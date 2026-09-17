@@ -16,7 +16,7 @@ describe('MetricsService.summary', () => {
     const s = new MetricsService(makeDb(), fixedClock(NOW)).summary();
     expect(s).toEqual({
       open: 0, untaken: 0, byAgent: [], byCategory: [],
-      aging: [{ label: '< 24h', n: 0 }, { label: '24h – 72h', n: 0 }, { label: '72h – 168h', n: 0 }, { label: '≥ 168h', n: 0 }],
+      aging: [{ label: '< 24h', n: 0 }, { label: '24h a < 72h', n: 0 }, { label: '72h a < 168h', n: 0 }, { label: '≥ 168h', n: 0 }],
       created30: 0, resolved30: 0, cancelled30: 0, cancelRate30: null,
       medianClaimHours: null, medianResolveHours: null,
     });
@@ -59,6 +59,18 @@ describe('MetricsService.summary', () => {
     expect(s.cancelRate30).toBeCloseTo(1 / 3, 10); // cohort A, B, D → only D cancelled
     expect(s.medianClaimHours).toBeCloseTo(50.5, 5); // A: 1h, C: 100h (E's first claim is outside window)
     expect(s.medianResolveHours).toBeCloseTo(790, 5); // C only
+  });
+
+  it('30-day window includes the exact cutoff and now, excludes just before the cutoff', () => {
+    const db = makeDb();
+    const at = (iso: string) => new TicketsService(db, fixedClock(iso));
+    const input = { title: 't', description: 'd', categoryId: 1 };
+    at(hoursAgo(720)).create(input, ANA);        // exactly at cutoff → in
+    at(hoursAgo(720.001)).create(input, ANA);    // 3.6s before cutoff → out
+    at(NOW).create(input, ANA);                  // exactly now → in
+    const s = new MetricsService(db, fixedClock(NOW)).summary();
+    expect(s.created30).toBe(2);
+    expect(s.cancelRate30).toBe(0);              // cohort of 2 created in window, none cancelled
   });
 });
 

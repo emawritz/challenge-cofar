@@ -77,8 +77,10 @@ describe('TicketsService', () => {
     it('409 carries current status for the error page', () => {
       const id = svc.create(input, ANA);
       svc.transition(id, 1, 'claim', CARLA);
-      try { svc.transition(id, 1, 'cancel', ANA); fail('expected conflict'); }
-      catch (e) { expect((e as ConflictException).getResponse()).toMatchObject({ ticketId: id, currentStatus: 'IN_PROGRESS' }); }
+      let caught: unknown;
+      try { svc.transition(id, 1, 'cancel', ANA); } catch (e) { caught = e; }
+      expect(caught).toBeInstanceOf(ConflictException);
+      expect((caught as ConflictException).getResponse()).toMatchObject({ ticketId: id, currentStatus: 'IN_PROGRESS' });
     });
     it('409 is checked before 403 and 400', () => {
       const id = svc.create(input, ANA);

@@ -356,6 +356,8 @@ compró.
 | Sin comentarios en los tickets | Descartado con criterio (sección 6) | v2, cuando el flujo esté validado |
 | Sin `payload` en los eventos | Ningún evento de v1 lleva datos propios | Con la primera acción que traiga datos (reasignación con motivo) |
 | `AND version = ?` en el `UPDATE` es defensa en profundidad | Con una única conexión síncrona el chequeo previo de versión ya intercepta todo conflicto, así que esa cláusula nunca se activa y ningún test la ejercita (verificado, ver QUALITY.md) | Se mantiene a propósito: es la única defensa que queda cuando haya varias conexiones o procesos. Se vuelve verificable con tests de concurrencia real |
+| `conflict(t)` en la rama `changes === 0` reporta el estado leído al inicio de la transacción, que bajo una carrera real con varias conexiones podría estar obsoleto | Con una única conexión síncrona es inalcanzable: el chequeo previo de versión ya intercepta el conflicto antes de llegar al `UPDATE` | Con varias conexiones o procesos: releer la fila antes de construir el 409 |
+| `HttpErrorFilter` sólo captura `HttpException` | Cubre todos los errores que la aplicación lanza a propósito | Un error inesperado del driver hoy devuelve el JSON de 500 de Nest en una app HTML; agregar un filtro catch-all que renderice `error.hbs` con 500 |
 
 ## 10. Qué quedó fuera por tiempo
 

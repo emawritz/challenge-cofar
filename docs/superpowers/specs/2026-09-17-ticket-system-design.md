@@ -272,7 +272,7 @@ Reglas de las medianas:
 - Reapertura no reescribe la primera toma ni la primera resolución. Ciclos posteriores no se miden en v1.
 - Tickets nunca tomados o nunca resueltos no entran; su demora se ve en edad desde creación.
 - `CANCELLED` nunca entra en tiempo a resolución.
-- Cohorte vacía ⇒ "Sin datos".
+- Cohorte vacía ⇒ "—".
 - La query trae solo las duraciones de la cohorte; la mediana se calcula en JS. Pasar a agregado incremental cuando la latencia del dashboard sea perceptible en uso real.
 
 Cada número lleva al lado su definición en una frase en la vista.

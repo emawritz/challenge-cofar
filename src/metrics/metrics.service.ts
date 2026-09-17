@@ -4,7 +4,7 @@ import { Clock } from '../db/clock';
 import { DB, Db } from '../db/connection';
 
 export const WINDOW_HOURS = 720;
-export const AGING_LABELS = ['< 24h', '24h – 72h', '72h – 168h', '≥ 168h'] as const;
+export const AGING_LABELS = ['< 24h', '24h a < 72h', '72h a < 168h', '≥ 168h'] as const;
 
 export type Summary = {
   open: number;

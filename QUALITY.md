@@ -1,6 +1,6 @@
 # Estrategia de calidad
 
-**71 tests en 6 suites, todos en verde. `tsc --noEmit` limpio.**
+**72 tests en 6 suites, todos en verde. `tsc --noEmit` limpio.**
 
 ## 1. Criterio
 
@@ -22,7 +22,7 @@ verifica leyéndolo y corriéndolo, no escribiendo un test que después hay que 
 | `test/state-machine.spec.ts` | 28 | La máquina de estados completa |
 | `test/tickets.service.spec.ts` | 14 | Trazabilidad, atomicidad, conflicto de versión, precedencia |
 | `test/authz.spec.ts` | 10 | Autorización sobre HTTP real |
-| `test/metrics.service.spec.ts` | 11 | La matemática del dashboard |
+| `test/metrics.service.spec.ts` | 12 | La matemática del dashboard |
 | `test/auth.spec.ts` | 5 | Sesión y cookie firmada |
 | `test/seed.spec.ts` | 3 | Seed idempotente y arranque del módulo |
 
@@ -78,7 +78,7 @@ re-render the form with 400*, que cubre el título vacío y la categoría vacía
 Los dos que más importan son los que manipulan el campo oculto: un `version` viejo da 409 y un `version`
 no numérico da 400, nunca se interpreta como coincidencia. Un campo oculto es entrada del usuario.
 
-### `metrics.service.spec.ts` — 11 tests, unitarios con reloj fijo
+### `metrics.service.spec.ts` — 12 tests, unitarios con reloj fijo
 
 Ocho casos parametrizados golpean los **límites exactos** de los tramos de aging: 0, 23.99, 24, 71.99, 72,
 167.99, 168 y 5000 horas. Los bordes son donde un `<` en vez de un `<=` cambia un número que alguien lee.
@@ -94,6 +94,10 @@ fuera de la ventana pero resuelto adentro **sí** cuenta como resuelto, porque l
 resolución y no por fecha de creación. Un ticket reabierto y vuelto a resolver cuenta **por su primera
 resolución**: en la base de prueba, su primera resolución cae fuera de la ventana y su segunda adentro, y no
 cuenta, que es lo que evita inflar el número contando dos veces el mismo ticket.
+
+*30-day window includes the exact cutoff and now, excludes just before the cutoff* ejercita el borde exacto
+que DECISIONS.md §7 declara: `cutoff <= occurred_at <= now`, con un ticket 3.6 segundos antes del cutoff que
+queda afuera y dos exactamente en los bordes que quedan adentro.
 
 *null on empty, middle on odd, mean of two middles on even* cubre la función de mediana con cardinalidad
 par e impar y con cohorte vacía.
@@ -149,7 +153,7 @@ tabla de deuda técnica de DECISIONS.md.
 Es el tipo de cosa que sólo aparece si uno rompe el código a propósito. Sin la sonda 4, los tres tests de
 conflicto de versión en verde habrían pasado por evidencia de que ambas defensas funcionan.
 
-Tras cada mutación se restauró el archivo y se verificó el árbol limpio. Estado final: 71 de 71.
+Tras cada mutación se restauró el archivo y se verificó el árbol limpio. Estado final: 72 de 72.
 
 **Una sonda más, sobre el contrato de métricas.** Al escribir la definición de la mediana de resolución
 construí a mano el único camino por el que un ticket puede terminar `CANCELLED` habiendo tenido antes un
@@ -191,7 +195,7 @@ arriba.
 ## 6. Cómo correr las verificaciones
 
 ```bash
-pnpm test        # 71 tests, 6 suites
+pnpm test        # 72 tests, 6 suites
 pnpm typecheck   # tsc --noEmit
 pnpm build       # nest build
 ```

@@ -3,6 +3,8 @@ import request from 'supertest';
 import { loginAs, makeApp } from './helpers';
 
 describe('authorization over HTTP', () => {
+  // These tests share one ticket (`ticketId`) and mutate it in declaration order
+  // (claim → resolve). They must run in that order, not reordered or isolated with `.only`.
   let app: NestExpressApplication;
   let ana: string, bruno: string, carla: string, diego: string;
   let ticketId: number;

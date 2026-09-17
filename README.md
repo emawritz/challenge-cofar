@@ -7,6 +7,7 @@ Corre local, en un proceso, sobre SQLite.
 - [DECISIONS.md](DECISIONS.md) — modelo de datos, máquina de estados, alcance, límites y deuda asumida.
 - [AI-USAGE.md](AI-USAGE.md) — cómo se usó IA en el diseño y en la implementación, y qué salidas se rechazaron.
 - [QUALITY.md](QUALITY.md) — qué se probó, qué no, y cómo se verificó que los tests sirven.
+- [docs/superpowers/](docs/superpowers/) — spec de diseño (`specs/`) y plan de implementación (`plans/`).
 
 ## Requisitos
 
@@ -47,7 +48,7 @@ No hay contraseña. La pantalla de login es un selector de identidad simulada: e
 ## Tests y tipos
 
 ```bash
-pnpm test        # jest, 71 tests en 6 suites
+pnpm test        # jest, 72 tests en 6 suites
 pnpm typecheck   # tsc --noEmit
 pnpm build       # nest build → dist/
 ```
@@ -66,7 +67,7 @@ pnpm build       # nest build → dist/
 4. **Dashboard.** `/dashboard` (link en la barra, solo para agentes). Cada número lleva debajo la frase que
    dice qué mide exactamente: abiertos, sin tomar, quién los tiene, abiertos por categoría, edad desde
    creación por tramos, y la ventana de 30 días con creados, resueltos, cancelados, tasa de cancelación y las
-   dos medianas. Después del paso 3 vas a ver "Resueltos: 1".
+   dos medianas. Después del paso 3 vas a ver que el bloque Resueltos muestra 1.
 5. **Un 403.** "Salir" → entrá como *Ana Pérez* y pedí `http://localhost:3000/dashboard` a mano. Devuelve
    403 con "No tenés permiso para esta acción.". El link al dashboard ni siquiera se le muestra: el 403 lo
    pone el guard de rol, no la vista.
