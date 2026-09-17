@@ -354,7 +354,7 @@ compró.
 | `SESSION_SECRET` tiene un valor por defecto de desarrollo | Arranque sin configuración para la demo | Validar su presencia al bootear y fallar si falta, apenas exista un entorno que no sea local |
 | Sin comentarios en los tickets | Descartado con criterio (sección 6) | v2, cuando el flujo esté validado |
 | Sin `payload` en los eventos | Ningún evento de v1 lleva datos propios | Con la primera acción que traiga datos (reasignación con motivo) |
-| `AND version = ?` en el `UPDATE` es defensa en profundidad | Con una única conexión síncrona el chequeo previo de versión ya intercepta todo conflicto, así que esa cláusula nunca se activa y ningún test la ejercita (verificado, ver QUALITY.md) | Se mantiene a propósito: es la única defensa que queda cuando haya varias conexiones o procesos. Se vuelve verificable con tests de concurrencia real |
+| `AND version = ?` en el `UPDATE` es defensa en profundidad | Con una única conexión síncrona el chequeo previo de versión ya intercepta todo conflicto, así que esa cláusula nunca se activa y ningún test la ejercita (verificado, ver ESTRATEGIA-DE-CALIDAD.md) | Se mantiene a propósito: es la única defensa que queda cuando haya varias conexiones o procesos. Se vuelve verificable con tests de concurrencia real |
 | `conflict(t)` en la rama `changes === 0` reporta el estado leído al inicio de la transacción, que bajo una carrera real con varias conexiones podría estar obsoleto | Con una única conexión síncrona es inalcanzable: el chequeo previo de versión ya intercepta el conflicto antes de llegar al `UPDATE` | Con varias conexiones o procesos: releer la fila antes de construir el 409 |
 | `HttpErrorFilter` sólo captura `HttpException` | Cubre todos los errores que la aplicación lanza a propósito | Un error inesperado del driver hoy devuelve el JSON de 500 de Nest en una app HTML; agregar un filtro catch-all que renderice `error.hbs` con 500 |
 
@@ -367,7 +367,7 @@ navegador real: login como solicitante, crear el ticket, login como agente, veri
 con el filtro `status=OPEN`, tomarlo, resolverlo, comprobar que el historial muestra los tres eventos y que
 el dashboard pasa a mostrar "Resueltos: 1". Es el único bloque del plan que no entró.
 
-No quedó sin cubrir: ese mismo recorrido está verificado a mano y documentado paso a paso en QUALITY.md, y
+No quedó sin cubrir: ese mismo recorrido está verificado a mano y documentado paso a paso en ESTRATEGIA-DE-CALIDAD.md, y
 la autorización, la precedencia de errores y el 409 están cubiertos por tests HTTP reales con supertest, que
 es donde estaba el riesgo verdadero. Lo que Playwright habría agregado por encima de eso es la garantía de
 que los formularios y los links de las vistas siguen conectados entre sí, que es exactamente la parte que un

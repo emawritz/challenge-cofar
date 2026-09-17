@@ -47,7 +47,7 @@
 | `views/*.hbs` | Plantillas |
 | `test/helpers.ts` | `makeDb()`, `fixedClock()`, `loginAs()` |
 | `test/*.spec.ts` | Tests 1-5 |
-| `README.md`, `DECISIONS.md`, `AI-USAGE.md`, `QUALITY.md` | Entregables |
+| `README.md`, `DECISIONS.md`, `AI-USAGE.md`, `ESTRATEGIA-DE-CALIDAD.md` | Entregables |
 
 ---
 
@@ -1933,11 +1933,11 @@ git commit -m "test: authorization and error precedence over HTTP"
 ### Task 9: Documentos de entrega y verificación desde checkout limpio
 
 **Files:**
-- Create: `README.md`, `DECISIONS.md`, `AI-USAGE.md`, `QUALITY.md`
+- Create: `README.md`, `DECISIONS.md`, `AI-USAGE.md`, `ESTRATEGIA-DE-CALIDAD.md`
 
 - [ ] **Step 1: README.md**
 
-Contenido: qué es (2 líneas); requisitos (Node 20, pnpm); `pnpm install`, `pnpm dev`, abrir `http://localhost:3000`; usuarios de demo (tabla de `SEED_USERS` con rol); `pnpm test`, `pnpm typecheck`; dónde queda la DB (`data/tickets.db`) y cómo resetear (`rm -rf data`); recorrido de demo de 5 minutos (crear como Ana, tomar y resolver como Carla, historial, dashboard, 403 de Ana en `/dashboard`, 409 con dos pestañas tomando el mismo ticket); links a `DECISIONS.md`, `AI-USAGE.md`, `QUALITY.md`.
+Contenido: qué es (2 líneas); requisitos (Node 20, pnpm); `pnpm install`, `pnpm dev`, abrir `http://localhost:3000`; usuarios de demo (tabla de `SEED_USERS` con rol); `pnpm test`, `pnpm typecheck`; dónde queda la DB (`data/tickets.db`) y cómo resetear (`rm -rf data`); recorrido de demo de 5 minutos (crear como Ana, tomar y resolver como Carla, historial, dashboard, 403 de Ana en `/dashboard`, 409 con dos pestañas tomando el mismo ticket); links a `DECISIONS.md`, `AI-USAGE.md`, `ESTRATEGIA-DE-CALIDAD.md`.
 
 - [ ] **Step 2: DECISIONS.md**
 
@@ -1964,7 +1964,7 @@ Secciones:
 6. Errores que las IA se encontraron entre sí: Codex detectó que el flujo original daba 400 antes que 409; que el E2E asumía una métrica inexistente; ambigüedades del contrato de métricas. Claude detectó que `better-sqlite3@13` segfaultea en Node 20 durante un probe previo al plan.
 7. Qué se verificó a mano: (completar durante la implementación con lo que realmente pasó: tests que fallaron primero, código generado que hubo que corregir).
 
-- [ ] **Step 4: QUALITY.md**
+- [ ] **Step 4: ESTRATEGIA-DE-CALIDAD.md**
 
 Secciones:
 1. Criterio: esfuerzo donde un fallo corrompe el flujo o miente al usuario.
@@ -2124,7 +2124,7 @@ test('requester creates, agent claims and resolves, history and dashboard reflec
 - [ ] **Step 3: Correr con tope**
 
 Run: `pnpm e2e`
-Expected: 1 passed. Si a los 20 minutos de trabajo no está estable: `git checkout -- . && git clean -fd test/e2e playwright.config.ts`, quitar la dependencia, y registrar en QUALITY.md que el recorrido se validó a mano.
+Expected: 1 passed. Si a los 20 minutos de trabajo no está estable: `git checkout -- . && git clean -fd test/e2e playwright.config.ts`, quitar la dependencia, y registrar en ESTRATEGIA-DE-CALIDAD.md que el recorrido se validó a mano.
 
 ```bash
 git add -A && git commit -m "test: playwright end-to-end journey"
@@ -2142,8 +2142,8 @@ git add -A && git commit -m "test: playwright end-to-end journey"
 
 - [ ] **Step 2: Confirmar restauración y registrar**
 
-Run: `git diff --stat` → vacío. `pnpm test` → verde. Anotar en QUALITY.md sección 4 las tres mutaciones y qué test las atrapó.
+Run: `git diff --stat` → vacío. `pnpm test` → verde. Anotar en ESTRATEGIA-DE-CALIDAD.md sección 4 las tres mutaciones y qué test las atrapó.
 
 ```bash
-git add -A && git commit -m "docs: record manual mutation checks in QUALITY.md"
+git add -A && git commit -m "docs: record manual mutation checks in ESTRATEGIA-DE-CALIDAD.md"
 ```

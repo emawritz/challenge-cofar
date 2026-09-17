@@ -6,7 +6,7 @@ Corre local, en un proceso, sobre SQLite.
 
 - [DECISIONS.md](DECISIONS.md) — modelo de datos, máquina de estados, alcance, límites y deuda asumida.
 - [AI-USAGE.md](AI-USAGE.md) — cómo se usó IA en el diseño y en la implementación, y qué salidas se rechazaron.
-- [QUALITY.md](QUALITY.md) — qué se probó, qué no, y cómo se verificó que los tests sirven.
+- [ESTRATEGIA-DE-CALIDAD.md](ESTRATEGIA-DE-CALIDAD.md) — qué se probó, qué no, y cómo se verificó que los tests sirven.
 - [docs/superpowers/](docs/superpowers/) — spec de diseño (`specs/`) y plan de implementación (`plans/`).
 
 ## Requisitos

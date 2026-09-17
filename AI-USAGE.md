@@ -194,7 +194,7 @@ y 403 para Ana. El 403 del guard de rol verificado sobre HTTP real, no con un mo
 fallaban y restauré. Un test que pasa no prueba nada hasta verlo fallar. Las tres mutaciones fueron
 atrapadas, y por más pruebas de las previstas en cada caso. Una cuarta sonda mostró que la cláusula
 `AND version = ?` del `UPDATE` es redundante mientras haya una sola conexión síncrona. El detalle, con qué
-prueba atrapó qué, está en QUALITY.md.
+prueba atrapó qué, está en ESTRATEGIA-DE-CALIDAD.md.
 
 **Escritura de estos documentos.** Comparar cada definición del contrato de métricas con el texto que
 muestra la pantalla destapó un caso límite que ninguna de las dos herramientas había visto y que ningún test

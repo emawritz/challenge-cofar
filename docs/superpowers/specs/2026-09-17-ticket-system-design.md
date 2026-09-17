@@ -3,7 +3,7 @@
 Fecha: 2026-09-17
 Contexto: ejercicio técnico para rol Head of Product & Engineering. Time box 4-5h. Se evalúan decisiones, no volumen de código ni diseño visual.
 
-Convención de alcance: todo lo marcado **[núcleo]** se construye. Todo lo marcado **[stretch]** se construye solo si sobra tiempo, en el orden indicado en §14; si no entra, se documenta en DECISIONS.md y QUALITY.md como dejado fuera por tiempo, con cómo se haría.
+Convención de alcance: todo lo marcado **[núcleo]** se construye. Todo lo marcado **[stretch]** se construye solo si sobra tiempo, en el orden indicado en §14; si no entra, se documenta en DECISIONS.md y ESTRATEGIA-DE-CALIDAD.md como dejado fuera por tiempo, con cómo se haría.
 
 ## 1. Problema
 
@@ -293,7 +293,7 @@ Esfuerzo va donde un fallo corrompe el flujo o miente al usuario. Orden de imple
 7. **Playwright**, un recorrido: login solicitante → crear → login agente → cola con filtro `status=OPEN` muestra el ticket → tomar → resolver → historial muestra 3 eventos → dashboard muestra "Resueltos (30d): 1".
 
 ### Técnica recomendada, no obligatoria
-Antes de dar por válidos los tests 1-3: romper la línea, ver el test fallar, restaurar. Tres invariantes: quitar una transición prohibida de `canTransition`; comentar el insert del evento; quitar `AND version = ?` del UPDATE. Se documenta en QUALITY.md como método; si se hizo, se dice cuáles; si no, se dice por qué.
+Antes de dar por válidos los tests 1-3: romper la línea, ver el test fallar, restaurar. Tres invariantes: quitar una transición prohibida de `canTransition`; comentar el insert del evento; quitar `AND version = ?` del UPDATE. Se documenta en ESTRATEGIA-DE-CALIDAD.md como método; si se hizo, se dice cuáles; si no, se dice por qué.
 
 ### No se prueba, deliberado
 - Render de vistas (visual, no evaluado).
@@ -304,7 +304,7 @@ Antes de dar por válidos los tests 1-3: romper la línea, ver el test fallar, r
 ### Verificación de entrega [núcleo]
 - `pnpm install && pnpm dev` desde checkout limpio.
 - `pnpm test` verde. `tsc --noEmit` limpio.
-- Recorrido manual documentado en QUALITY.md (mismo que el de Playwright) más: un 403 (solicitante en `/dashboard`), un 409 (dos pestañas, mismo claim).
+- Recorrido manual documentado en ESTRATEGIA-DE-CALIDAD.md (mismo que el de Playwright) más: un 403 (solicitante en `/dashboard`), un 409 (dos pestañas, mismo claim).
 
 ## 11. Deuda técnica asumida
 
@@ -339,7 +339,7 @@ CLAUDE.md                    reglas del proyecto para el agente (ver §15)
 README.md
 DECISIONS.md
 AI-USAGE.md
-QUALITY.md
+ESTRATEGIA-DE-CALIDAD.md
 .nvmrc
 src/
   main.ts
