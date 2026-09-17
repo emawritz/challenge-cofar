@@ -91,8 +91,7 @@ respecto de la ventana de 720 horas y verifica el contrato entero: conteos, agru
 categoría, tramos de aging, creados, resueltos y cancelados en ventana, la tasa por cohorte de creación, y
 las dos medianas. Incluye los casos que el contrato define y que son fáciles de romper. Un ticket creado
 fuera de la ventana pero resuelto adentro **sí** cuenta como resuelto, porque la métrica es por evento de
-resolución y no por fecha de creación. Un ticket reabierto y vuelto a resolver cuenta **por su primera
-resolución**: en la base de prueba, su primera resolución cae fuera de la ventana y su segunda adentro, y no
+resolución y no por fecha de creación. Un ticket reabierto y vuelto a resolver cuenta **por su primera resolución**: en la base de prueba, su primera resolución cae fuera de la ventana y su segunda adentro, y no
 cuenta, que es lo que evita inflar el número contando dos veces el mismo ticket.
 
 *30-day window includes the exact cutoff and now, excludes just before the cutoff* ejercita el borde exacto

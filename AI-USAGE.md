@@ -151,8 +151,7 @@ Cada hallazgo con la tarea en la que apareció. Ninguno de estos es teórico: to
 decoración, `@Inject(DB)` recibía `undefined` y el módulo de base de datos no podía resolverse: la
 aplicación no booteaba. Los tests existentes no lo detectaban porque construían la base directamente,
 esquivando el contenedor de inyección de dependencias. Lo encontró el revisor de la tarea. Se arregló
-extrayendo el token a `src/db/token.ts`, y —esto es lo importante— **se agregó un test que arranca el
-módulo a través del contenedor real de Nest**, porque el problema no era el ciclo sino que ese camino no
+extrayendo el token a `src/db/token.ts`, y —esto es lo importante— **se agregó un test que arranca el módulo a través del contenedor real de Nest**, porque el problema no era el ciclo sino que ese camino no
 tenía cobertura.
 
 **Tarea 3 — `import * as hbs from 'hbs'` pasaba el typecheck y rompía en runtime.** Con
