@@ -1,0 +1,4 @@
+<h1>Error {{status}}</h1>
+<p class="error">{{message}}</p>
+{{#if currentStatus}}<p>Estado actual: <span class="status">{{currentStatus}}</span></p>{{/if}}
+{{#if ticketId}}<p><a href="/tickets/{{ticketId}}">Ver ticket</a> · <a href="/tickets">Volver a la lista</a></p>{{else}}<p><a href="/tickets">Volver a la lista</a></p>{{/if}}

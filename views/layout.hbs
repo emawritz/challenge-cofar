@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tickets</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 960px; margin: 0 auto; padding: 16px; }
+    nav { display: flex; gap: 16px; align-items: center; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 16px; }
+    nav form { margin-left: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #eee; }
+    .status { font-weight: 600; }
+    .error { color: #b00020; }
+    .muted { color: #666; font-size: 0.9em; }
+    form.inline { display: inline; }
+    fieldset { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; }
+    label { display: flex; flex-direction: column; gap: 4px; }
+    .metric { display: inline-block; min-width: 160px; padding: 8px 12px; border: 1px solid #ddd; margin: 4px; }
+    .metric strong { font-size: 1.6em; display: block; }
+  </style>
+</head>
+<body>
+  {{#if user}}
+  <nav>
+    <a href="/tickets">Tickets</a>
+    {{#if (eq user.role "AGENT")}}<a href="/dashboard">Dashboard</a>{{/if}}
+    {{#if (eq user.role "REQUESTER")}}<a href="/tickets/new">Nuevo ticket</a>{{/if}}
+    <span class="muted">{{user.name}} · {{user.role}}</span>
+    <form method="post" action="/logout"><button>Salir</button></form>
+  </nav>
+  {{/if}}
+  <main>{{{body}}}</main>
+</body>
+</html>
