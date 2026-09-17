@@ -1,0 +1,8 @@
+<h1>Elegí una identidad</h1>
+<p class="muted">Identidad simulada para la demo. No es autenticación: cualquiera puede elegir cualquier usuario.</p>
+{{#each users}}
+<form method="post" action="/login" style="margin: 8px 0">
+  <input type="hidden" name="userId" value="{{id}}">
+  <button>Entrar como {{name}} ({{#if (eq role "AGENT")}}agente{{else}}solicitante{{/if}})</button>
+</form>
+{{/each}}
