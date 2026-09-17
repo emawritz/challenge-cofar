@@ -6,21 +6,23 @@
 <div class="metric"><strong>{{untaken}}</strong>Sin tomar<br><span class="muted">tickets en OPEN (nadie los tiene)</span></div>
 
 <h2>Quién los tiene</h2>
+<p class="muted">Tickets en IN_PROGRESS agrupados por el agente que los tomó. Solo agentes con al menos uno.</p>
 {{#if byAgent.length}}
 <table><thead><tr><th>Agente</th><th>En progreso</th></tr></thead><tbody>
 {{#each byAgent}}<tr><td>{{name}}</td><td>{{n}}</td></tr>{{/each}}
 </tbody></table>
 {{else}}<p class="muted">Nadie tiene tickets en progreso.</p>{{/if}}
 
-<h2>Activos por categoría</h2>
+<h2>Abiertos por categoría</h2>
+<p class="muted">Tickets en OPEN o IN_PROGRESS agrupados por categoría. Solo categorías con al menos uno.</p>
 {{#if byCategory.length}}
-<table><thead><tr><th>Categoría</th><th>Activos</th></tr></thead><tbody>
+<table><thead><tr><th>Categoría</th><th>Abiertos</th></tr></thead><tbody>
 {{#each byCategory}}<tr><td>{{name}}</td><td>{{n}}</td></tr>{{/each}}
 </tbody></table>
-{{else}}<p class="muted">Sin tickets activos.</p>{{/if}}
+{{else}}<p class="muted">Sin tickets abiertos.</p>{{/if}}
 
-<h2>Edad desde creación (activos)</h2>
-<p class="muted">Cuánto hace que se creó cada ticket activo, sin importar reaperturas.</p>
+<h2>Edad desde creación (abiertos)</h2>
+<p class="muted">Cuánto hace que se creó cada ticket abierto (OPEN o IN_PROGRESS), sin importar reaperturas.</p>
 {{#each aging}}<div class="metric"><strong>{{n}}</strong>{{label}}</div>{{/each}}
 
 <h2>Últimos 30 días</h2>
