@@ -1,5 +1,5 @@
 import { Transform, Type } from 'class-transformer';
-import { IsInt, Length } from 'class-validator';
+import { IsInt, Length, Min } from 'class-validator';
 
 const trim = ({ value }: { value: unknown }) => (typeof value === 'string' ? value.trim() : value);
 
@@ -14,5 +14,6 @@ export class CreateTicketDto {
 
   @Type(() => Number)
   @IsInt({ message: 'Elegí una categoría.' })
+  @Min(1, { message: 'Elegí una categoría.' })
   categoryId: number;
 }
