@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { Clock } from './clock';
-import { DB, Db } from './connection';
+import { DB, Db } from './token';
 import { categories, users } from './schema';
 
 export const SEED_USERS = [

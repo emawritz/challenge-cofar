@@ -1,15 +1,15 @@
 import { Global, Module } from '@nestjs/common';
 import Database from 'better-sqlite3';
-import { BetterSQLite3Database, drizzle } from 'drizzle-orm/better-sqlite3';
+import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
 import { mkdirSync } from 'fs';
 import { dirname, join } from 'path';
 import { Clock } from './clock';
 import * as schema from './schema';
 import { SeedService } from './seed';
+import { DB, Db } from './token';
 
-export const DB = Symbol('DB');
-export type Db = BetterSQLite3Database<typeof schema>;
+export { DB, Db } from './token';
 
 export function createDb(file: string): Db {
   if (file !== ':memory:') mkdirSync(dirname(file), { recursive: true });
