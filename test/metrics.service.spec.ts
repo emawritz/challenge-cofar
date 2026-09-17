@@ -1,4 +1,4 @@
-import { bucketIndex, MetricsService } from '../src/metrics/metrics.service';
+import { bucketIndex, median, MetricsService } from '../src/metrics/metrics.service';
 import { TicketsService } from '../src/tickets/tickets.service';
 import { ANA, BRUNO, CARLA, DIEGO, fixedClock, makeDb } from './helpers';
 
@@ -18,6 +18,7 @@ describe('MetricsService.summary', () => {
       open: 0, untaken: 0, byAgent: [], byCategory: [],
       aging: [{ label: '< 24h', n: 0 }, { label: '24h – 72h', n: 0 }, { label: '72h – 168h', n: 0 }, { label: '≥ 168h', n: 0 }],
       created30: 0, resolved30: 0, cancelled30: 0, cancelRate30: null,
+      medianClaimHours: null, medianResolveHours: null,
     });
   });
 
@@ -56,5 +57,15 @@ describe('MetricsService.summary', () => {
     expect(s.resolved30).toBe(1);      // C only; E's first resolution is outside the window
     expect(s.cancelled30).toBe(1);     // D
     expect(s.cancelRate30).toBeCloseTo(1 / 3, 10); // cohort A, B, D → only D cancelled
+    expect(s.medianClaimHours).toBeCloseTo(50.5, 5); // A: 1h, C: 100h (E's first claim is outside window)
+    expect(s.medianResolveHours).toBeCloseTo(790, 5); // C only
+  });
+});
+
+describe('median', () => {
+  it('null on empty, middle on odd, mean of two middles on even', () => {
+    expect(median([])).toBeNull();
+    expect(median([5, 1, 3])).toBe(3);
+    expect(median([4, 1, 3, 2])).toBe(2.5);
   });
 });

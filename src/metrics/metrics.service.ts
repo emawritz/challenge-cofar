@@ -16,6 +16,8 @@ export type Summary = {
   resolved30: number;
   cancelled30: number;
   cancelRate30: number | null;
+  medianClaimHours: number | null;
+  medianResolveHours: number | null;
 };
 
 export function bucketIndex(hours: number): 0 | 1 | 2 | 3 {
@@ -23,6 +25,13 @@ export function bucketIndex(hours: number): 0 | 1 | 2 | 3 {
   if (hours < 72) return 1;
   if (hours < 168) return 2;
   return 3;
+}
+
+export function median(xs: number[]): number | null {
+  if (xs.length === 0) return null;
+  const s = [...xs].sort((a, b) => a - b);
+  const mid = Math.floor(s.length / 2);
+  return s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2;
 }
 
 @Injectable()
@@ -60,6 +69,19 @@ export class MetricsService {
       from tickets where created_at between ${cutoff} and ${nowIso}`)!;
     const cancelRate30 = cohort.created === 0 ? null : (cohort.cancelled ?? 0) / cohort.created;
 
-    return { open, untaken, byAgent, byCategory, aging, created30, resolved30, cancelled30, cancelRate30 };
+    const durations = (type: 'CLAIMED' | 'RESOLVED') =>
+      this.db.all<{ h: number }>(sql`
+        select (julianday(e.occurred_at) - julianday(t.created_at)) * 24 as h
+        from (select ticket_id, min(id) as first_id from ticket_events where type = ${type} group by ticket_id) f
+        join ticket_events e on e.id = f.first_id
+        join tickets t on t.id = f.ticket_id
+        where e.occurred_at between ${cutoff} and ${nowIso}`).map((r) => r.h);
+    const medianClaimHours = median(durations('CLAIMED'));
+    const medianResolveHours = median(durations('RESOLVED'));
+
+    return {
+      open, untaken, byAgent, byCategory, aging, created30, resolved30, cancelled30, cancelRate30,
+      medianClaimHours, medianResolveHours,
+    };
   }
 }
